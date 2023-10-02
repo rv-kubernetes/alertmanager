@@ -1,0 +1,26 @@
+templates:
+  - '/etc/alertmanager/template/*.tmpl'	   
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 1m
+  repeat_interval: 5m
+  receiver: 'email-me'
+receivers:
+  - name: 'email-me'
+    email_configs:
+     - to: 'venerayan@gmail.com'
+       headers:
+         subject: 'ArgoCD deploy status: {{ template "sync.status" . }}'
+       from: 'venerayan@gmail.com'
+       smarthost: 'smtp.gmail.com:587'
+       auth_username: 'venerayan@gmail.com'
+       auth_password: 'xxxxxxxxxxxxxxxxx'
+	     require_tls: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']	  
