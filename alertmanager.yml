@@ -16,7 +16,7 @@ receivers:
        smarthost: 'smtp.gmail.com:587'
        auth_username: 'venerayan@gmail.com'
        auth_password: 'xxxxxxxxxxxxxxxxx'
-	     require_tls: true
+       require_tls: true
 
 inhibit_rules:
   - source_match:
